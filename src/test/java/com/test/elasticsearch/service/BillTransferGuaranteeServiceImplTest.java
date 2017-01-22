@@ -3,12 +3,17 @@ package com.test.elasticsearch.service;
 import com.test.elasticsearch.model.BillTransferGuaranteeDO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 import java.util.UUID;
 
 /** 
@@ -33,24 +38,19 @@ public class BillTransferGuaranteeServiceImplTest {
     @Test
     public void testAddBillTransferGuarantee() throws Exception {
         try {
-            BillTransferGuaranteeDO billTransferGuaranteeDO = new BillTransferGuaranteeDO();
-            billTransferGuaranteeDO.setId("2972ce3a-48b5-4ed4-8334-892c95a64181");
-            billTransferGuaranteeDO.setVersion(new Byte("1"));
-            billTransferGuaranteeDO.setToAccountId("toAccountId");
-            billTransferGuaranteeDO.setAppId("appId");
-            billTransferGuaranteeDO.setBatchId("batchId");
-            billTransferGuaranteeDO.setBillNumber("billNumber");
-            billTransferGuaranteeDO.setBillStatus("billStatus");
-            billTransferGuaranteeDO.setBusinessBody("businessBody");
-            billTransferGuaranteeDO.setBusinessDate(new Date());
-            billTransferGuaranteeDO.setBusinessDesc("businessDesc");
-            billTransferGuaranteeDO.setChannelAccount("channelAccount");
-            billTransferGuaranteeDO.setAmount(new BigDecimal(10));
-            billTransferGuaranteeDO.setBusinessNumber("businessNumber");
-            billTransferGuaranteeDO.setChannelId("channelId");
-            billTransferGuaranteeDO.setCreateDate(new Date());
-            boolean b = billTransferGuaranteeService.addBillTransferGuarantee(billTransferGuaranteeDO);
-            System.out.println(b);
+            while (true) {
+                BillTransferGuaranteeDO billTransferGuaranteeDO = new BillTransferGuaranteeDO();
+                billTransferGuaranteeDO.setId(UUID.randomUUID().toString());
+                billTransferGuaranteeDO.setToAccountId("toAccountId");
+                billTransferGuaranteeDO.setBillStatus("billStatus");
+                billTransferGuaranteeDO.setBusinessDate(new Date());
+                billTransferGuaranteeDO.setAmount(new BigDecimal(10));
+                billTransferGuaranteeDO.setBusinessNumber("businessNumber");
+                billTransferGuaranteeDO.setChannelId("channelId");
+                billTransferGuaranteeDO.setCreateDate(new Date());
+                boolean b = billTransferGuaranteeService.addBillTransferGuarantee(billTransferGuaranteeDO);
+                System.out.println(b);
+            }
         }catch (Exception e){
             System.out.println(e);
         }
@@ -63,7 +63,22 @@ public class BillTransferGuaranteeServiceImplTest {
      */
     @Test
     public void testModifyBillTransferGuarantee() throws Exception {
-//TODO: Test goes here...
+        try {
+            BillTransferGuaranteeDO billTransferGuaranteeDO = new BillTransferGuaranteeDO();
+            billTransferGuaranteeDO.setId("bbac2bbb-f928-49ab-af74-a363ea5c9db1");
+            billTransferGuaranteeDO.setToAccountId("toAccountId");
+            billTransferGuaranteeDO.setFromAccountId("fromAccountId");
+            billTransferGuaranteeDO.setBillStatus("billStatus");
+            billTransferGuaranteeDO.setBusinessDate(new Date());
+            billTransferGuaranteeDO.setAmount(new BigDecimal(10));
+            billTransferGuaranteeDO.setBusinessNumber("businessNumber");
+            billTransferGuaranteeDO.setChannelId("channelId");
+            billTransferGuaranteeDO.setCreateDate(new Date());
+            boolean b = billTransferGuaranteeService.modifyBillTransferGuarantee(billTransferGuaranteeDO);
+            System.out.println(b);
+        }catch (Exception e){
+            System.out.println(e);
+        }
     }
 
     /**
@@ -73,7 +88,7 @@ public class BillTransferGuaranteeServiceImplTest {
      */
     @Test
     public void testRemoveBillTransferGuarantee() throws Exception {
-        billTransferGuaranteeService.removeBillTransferGuarantee("2972ce3a-48b5-4ed4-8334-892c95a64181");
+        billTransferGuaranteeService.removeBillTransferGuarantee("AVm1kV5y4myzPyRhG1O9");
     }
 
     /**
@@ -83,7 +98,7 @@ public class BillTransferGuaranteeServiceImplTest {
      */
     @Test
     public void testGetBillTransferGuaranteeById() throws Exception {
-        String bill = billTransferGuaranteeService.getBillTransferGuaranteeById("billnumber");
+        BillTransferGuaranteeDO bill = billTransferGuaranteeService.getBillTransferGuaranteeById("e376c535-5d23-4cab-ad26-c9ca2075de9c");
         System.out.println(bill);
     }
 
@@ -104,7 +119,18 @@ public class BillTransferGuaranteeServiceImplTest {
      */
     @Test
     public void testQueryBillTransferGuarantee() throws Exception {
-//TODO: Test goes here...
+        BillTransferGuaranteeDO billTransferGuaranteeDO = new BillTransferGuaranteeDO();
+//        billTransferGuaranteeDO.setChannelId("w");
+//        billTransferGuaranteeDO.setToAccountId("toAccountId");
+        billTransferGuaranteeDO.setBillStatus("billStatus");
+        Pageable pageable = new PageRequest(0,10);
+        Page<BillTransferGuaranteeDO> list = billTransferGuaranteeService.queryBillTransferGuaranteeByPage(billTransferGuaranteeDO,pageable);
+        Iterator<BillTransferGuaranteeDO> iterator = list.iterator();
+        System.out.println(list.getNumber());
+        System.out.println(list.getSize());
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next().toString());
+        }
     }
 
 } 

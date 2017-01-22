@@ -8,7 +8,7 @@ package com.test.elasticsearch.utils;
 public class Constant {
 
     public class Index{
-        public static final String FUNDS_BUSINESS = "funds_business_xx";
+        public static final String FUNDS_BUSINESS = "funds_business";
     }
 
     public class Type{

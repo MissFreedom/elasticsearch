@@ -1,6 +1,8 @@
 package com.test.elasticsearch.service;
 
 import com.test.elasticsearch.model.BillTransferGuaranteeDO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -37,7 +39,7 @@ public interface BillTransferGuaranteeService {
      * @return
      * @throws Exception
      */
-    boolean removeBillTransferGuarantee(String id) throws Exception;
+    void removeBillTransferGuarantee(String id) throws Exception;
 
     /**
      * 根据id获取支付订单服务信息
@@ -46,7 +48,7 @@ public interface BillTransferGuaranteeService {
      * @return
      * @throws Exception
      */
-    String getBillTransferGuaranteeById(String id) throws Exception;
+    BillTransferGuaranteeDO getBillTransferGuaranteeById(String id) throws Exception;
 
     /**
      * 查询支付订单服务信息
@@ -54,6 +56,6 @@ public interface BillTransferGuaranteeService {
      * @param query
      * @return
      */
-    List<BillTransferGuaranteeDO> queryBillTransferGuarantee(BillTransferGuaranteeDO query) throws Exception;
+    Page<BillTransferGuaranteeDO> queryBillTransferGuaranteeByPage(BillTransferGuaranteeDO query, Pageable pageable);
 
 }
